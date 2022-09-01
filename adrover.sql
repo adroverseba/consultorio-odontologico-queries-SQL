@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS odontologos(
   dni VARCHAR(20) NOT NULL,
   fecha_nacimiento DATE NOT NULL,
   especialidad VARCHAR(20),
-  nombre_consultorio VARCHAR(20),
-  FOREIGN KEY (nombre_consultorio)
-    REFERENCES locales(nombre_consultorio)
+  nombre_local VARCHAR(20),
+  FOREIGN KEY (nombre_local)
+    REFERENCES locales(nombre_local)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 );
@@ -54,20 +54,15 @@ CREATE TABLE IF NOT EXISTS tratamientos(
 );
 
 CREATE TABLE IF NOT EXISTS locales(
-  nombre_consultorio VARCHAR(20) NOT NULL UNIQUE PRIMARY KEY,
-  direccion VARCHAR(50),
-  numero_consultorio INT,
-    FOREIGN KEY (numero_consultorio)
-      REFERENCES consultorios(numero_consultorio)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+  nombre_local VARCHAR(20) NOT NULL UNIQUE PRIMARY KEY,
+  direccion VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS consultorios(
   numero_consultorio INT NOT NULL PRIMARY KEY,
-  num_serie INT,
-    FOREIGN KEY (num_serie)
-      REFERENCES equipos(num_serie)
+  nombre_local VARCHAR(20),
+    FOREIGN KEY (nombre_local)
+      REFERENCES locales(nombre_local)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 );
@@ -75,7 +70,12 @@ CREATE TABLE IF NOT EXISTS consultorios(
 CREATE TABLE IF NOT EXISTS equipos(
   num_serie INT NOT NULL UNIQUE PRIMARY KEY,
   tipo  VARCHAR(20) NOT NULL,
-  fecha_mantenimiento DATE
+  fecha_mantenimiento DATE,
+  numero_consultorio INT,
+    FOREIGN KEY (numero_consultorio)
+    REFERENCES consultorios(numero_consultorio)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE 
 );
 
 SET FOREIGN_KEY_CHECKS = 1;
