@@ -26,7 +26,11 @@ CREATE TABLE IF NOT EXISTS consultas(
   FOREIGN KEY (legajo)
     REFERENCES odontologos(legajo)
       ON DELETE CASCADE
-      ON UPDATE CASCADE
+      ON UPDATE CASCADE,
+  FOREIGN KEY(id_tratamiento)
+    REFERENCES tratamientos(id_tratamiento)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE 
 );
 
 CREATE TABLE IF NOT EXISTS odontologos(
