@@ -133,3 +133,13 @@ END as tipo_cliente
 FROM pacientes p
 ;
 
+-- vista para mostrar en que local estan las maquinas utilizadas 
+CREATE OR REPLACE VIEW v_maquinas_ubicacion AS
+SELECT c.numero_consultorio
+	,nombre_local
+    , num_serie as num_serie_maquina
+    , tipo as tipo_maquina 
+    ,fecha_mantenimiento
+FROM consultorios c
+JOIN equipos e ON c.numero_consultorio=e.numero_consultorio
+;
