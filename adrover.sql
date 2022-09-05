@@ -84,8 +84,78 @@ CREATE TABLE IF NOT EXISTS equipos(
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+--                                  INSERCION DE VALORES A LAS TABLAS
+INSERT INTO consultas 
+VALUES
+	(1,'2022-06-16 13:15:00',4,23066,1)
+    ,(2,'2022-06-22 12:30:00',7,23657,2)
+    ,(3,'2022-07-15 12:45:00',1,23545,3)
+    ,(4,'2022-07-15 12:45:00',2,23451,4)
+;
 
---                                  creacion de VISTAS
+INSERT INTO consultorios
+VALUES 
+	(1,'sonrisas brillantes')
+    ,(2,'sonrisas brillantes')
+    ,(3,'sonrisas brillantes')
+    ,(4,'sonrisas brillantes')
+    ,(5,'sonrisas cede centro')
+    ,(6,'sonrisas cede centro')
+;
+
+INSERT INTO equipos
+VALUES 
+	(1327689,'cubeta par impresion','2019-04-15',1)
+    ,(1321321,'taladro dental','2019-05-21',5)
+    ,(3183213,'pelicano dental','2019-07-01',4)
+    ,(3213212,'mechero odontologico','2020-11-13',6)
+    ,(5546546,'separador dental','2021-05-10',2)
+    ,(6568546,'turbina','2022-08-03',2)
+    ,(8465121,'aplicador amalgama','2019-08-10',3)
+    ,(8561218,'abre bocas','2020-08-15',6)
+;
+
+INSERT INTO locales
+VALUES 
+	('﻿sonrisas brillantes','lizandro de la torre 450 - cba')
+    ,('sonrisas cede centro','mercado de penaloza 4280 - cba'
+);
+
+INSERT INTO odontologos
+VALUES 
+	(23066,'leonardo davincci','38422658','1994-08-04','dentista general',
+    '﻿sonrisas brillantes')
+	,(23451,'manuel estrada','40126569','2000-01-10','encias',
+    '﻿sonrisas brillantes')
+    ,(23545,'facundo rossi','40512632','1993-05-22','cirujano oral',
+    'sonrisas cede centro')
+    ,(23657,'estelita mercedes','39456215','1995-09-14','ortodoncista',
+    'sonrisas cede centro')
+;
+
+
+INSERT INTO pacientes
+VALUES
+	(null,'Sebastian Adrover','tokio 2020','38756213','1954-04-15','H','351-2156859')
+    ,(null,'Maria Laura','tokio 2020','36544985','1998-07-15','M','3541-542356')
+    ,(null,'Eikichi Onizuka','escuela n546','45213698','1985-07-27','H','3542-542353')
+    ,(null,'Matias Adr','teniente portom 987','65233845','1981-11-10','H','351-2459233')
+    ,(null,'Ippo Makunouchi','muelle 787','56244895','1986-03-30','H','354-5135463')
+    ,(null,'Ash Ketchup','paleta 543','54546554','2012-03-22','H','3541-542354')
+    ,(null,'Kenshin Himura','dojo kamilla 987','89544623','1999-12-11','H','351-5235412')
+;
+
+
+INSERT INTO tratamientos
+VALUES
+	(1,'blanqueamiento',3000,23066)
+	,(2,'limpieza',1500,23657)
+	,(3,'esmaltado',6000,23545)
+	,(4,'extraccion de muela',12000,23451)
+;
+
+
+--                                  CREACION DE VISTAS
 
 
 -- genero la vista de los costos de tratamientos, el IVA de los mismos y su costo total
