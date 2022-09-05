@@ -108,7 +108,6 @@ WHERE DATEDIFF(NOW(),fecha_mantenimiento) > 365
 SELECT * v_fecha_mantenimiento_viejas;
 
 
-
 -- vista con datos del cliente, tratamiento, costos y n de legajo del odontologo
 CREATE OR REPLACE VIEW v_cliente_tratamientos AS 
 SELECT t.id_tratamiento, t.nombre as tratamiento, t.costo, t.legajo as odontologo_legajo, a.nombre as paciente, a.telefono
@@ -120,6 +119,9 @@ JOIN
 	JOIN pacientes p ON (c.id_paciente=p.id_paciente)
 ) a ON t.id_tratamiento= a.id_tratamiento
 ;
+
+SELECT * v_cliente_tratamientos;
+
 
 -- vista que contiene calculo de edad del paciente y condicional CASE que 
 -- define el tipo de cliente segun su edad 
@@ -133,6 +135,9 @@ END as tipo_cliente
 FROM pacientes p
 ;
 
+SELECT * v_edad_tipo_cliente;
+
+
 -- vista para mostrar en que local estan las maquinas utilizadas 
 CREATE OR REPLACE VIEW v_maquinas_ubicacion AS
 SELECT c.numero_consultorio
@@ -143,3 +148,5 @@ SELECT c.numero_consultorio
 FROM consultorios c
 JOIN equipos e ON c.numero_consultorio=e.numero_consultorio
 ;
+
+SELECT * v_maquinas_ubicacion;
