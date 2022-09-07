@@ -91,6 +91,8 @@ VALUES
     ,(2,'2022-06-22 12:30:00',7,23657,2)
     ,(3,'2022-07-15 12:45:00',1,23545,3)
     ,(4,'2022-07-15 12:45:00',2,23451,4)
+    ,(null,'2022-09-10 12:00:00',3,23066,null)
+    ,(null,'2022-09-13 08:00:00',5,23451,null)
 ;
 
 INSERT INTO consultorios
@@ -220,3 +222,21 @@ JOIN equipos e ON c.numero_consultorio=e.numero_consultorio
 ;
 
 SELECT * v_maquinas_ubicacion;
+
+--                         ~    CREACION  DE  FUNCIONES    ~
+
+-- funcion que permite calcular la cantidad de fechas que faltan para que un cliente tenga su turno o consulta odontologica. Solo se le debera pasar el id del paciente que queremos consultar devolviendo un valor positivo y mayor que cero en el caso de que la fecha del turno aun no se haya cumplido.
+CREATE DEFINER=`root`@`localhost` FUNCTION `dias_turno`(id INT) RETURNS int
+    DETERMINISTIC
+
+BEGIN
+	DECLARE fecha_turno timestamp;
+  DECLARE result INT;
+    
+	SELECT fecha INTO fecha_turno
+  FROM consultas
+	WHERE id_paciente=id;
+
+	SELECT timestampdiff(DAY, NOW(), fecha_turno) INTO result;
+  RETURN result;
+END
