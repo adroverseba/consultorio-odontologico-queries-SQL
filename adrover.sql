@@ -240,3 +240,18 @@ BEGIN
 	SELECT timestampdiff(DAY, NOW(), fecha_turno) INTO result;
   RETURN result;
 END
+
+
+-- funcion capaz de calcular el precio total de un producto, incluyendo 3 argumentos. El primero es el precio del producto, el segundo el valor porcentual del impuestos a agregar(sin simbolo '%', ni ningun tipo de calculo adicional) y por ultimo el valor del descuento si es que posee uno(sin '%'), caso contrario se le debe pasar el valor de 0.
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `precio_total`(precio FLOAT,impuesto FLOAT,descuento FLOAT) RETURNS float
+    DETERMINISTIC
+BEGIN
+	DECLARE total FLOAT;
+    DECLARE precio_descuento FLOAT;
+
+    SET total = precio + (precio * impuesto)/100;
+    SET precio_descuento = total - (total * descuento)/100;
+    
+	RETURN precio_descuento;
+END
