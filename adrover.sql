@@ -279,3 +279,37 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+
+-- Este otro S.P. realiza lo siguiente -> 1: inserta registros en tabla pacientes. 2: eliminar algún registro
+-- específico de la tabla pacientes tomando el id_paciente como parametro.)
+DELIMITER $$
+
+CREATE PROCEDURE sp_add_delete_data2(IN operation VARCHAR(6), IN dato VARCHAR(100))
+BEGIN
+	IF operation = 'add' THEN
+		SET @resultado= CONCAT('INSERT INTO pacientes
+			(nombre,domicilio,numero_documento,fecha_nacimiento,sexo,telefono)
+			VALUES (',dato,');');
+	ELSEIF operation = 'delete' THEN 
+		SET @resultado = CONCAT('DELETE FROM pacientes WHERE id_paciente = ',dato,';');
+	ELSEIF operation <> 'add' AND operation <> 'delete' THEN 
+		SET @resultado = 'SELECT \'ERROR: Operaciones admitidas son "add" y "delete" \' AS Error';
+	ELSE 
+		SET @resultado = 'SELECT \'Ha ocurrido un error, verifica tu consulta e intenta nuevamente\' AS Error';
+	END IF;
+    
+    PREPARE querySQL FROM  @resultado;
+    EXECUTE querySQL;
+    DEALLOCATE PREPARE querySQL;
+    
+END $$
+
+DELIMITER ;
+
+--                              ejemplos de como realizar las consultas usando la anterior sp 
+
+-- CALL sp_add_delete_data('add','\'joaquin adr\',\'san juan 201\',\'42503856\',\'1999-08-09\',\'H\',\'3541226589\'');
+-- CALL sp_add_delete_data('delete','8')
+-- CALL sp_add_delete_data2('agreg','\'joaquin adr\',\'san juan 201\',\'42503856\',\'1999-08-09\',\'H\',\'3541226589\'')
