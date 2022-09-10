@@ -157,7 +157,7 @@ VALUES
 ;
 
 
---                                  CREACION DE VISTAS
+--                                     CREACION DE VISTAS
 
 
 -- genero la vista de los costos de tratamientos, el IVA de los mismos y su costo total
@@ -255,3 +255,27 @@ BEGIN
     
 	RETURN precio_descuento;
 END
+
+
+--                         ~       STORED PROCEDURE          ~ 
+
+-- El primer S.P.  permite indicar a través de un parámetro el campo de ordenamiento de una tabla y
+-- mediante un segundo parámetro, si el orden es descendente o ascendente.
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `sp_get_pacientes_order` (IN field VARCHAR(20), IN order_type VARCHAR(4))
+BEGIN
+	IF field <> '' THEN
+		SET @response = CONCAT('SELECT * FROM adrover.pacientes ORDER BY ',field,' ', order_type);
+	ELSE 
+		SET @response = 'SELECT \'ERROR: Insertar parametro de ordenamiento\' AS Error';
+	END IF;
+    
+    PREPARE querySQL FROM @response;
+	EXECUTE querySQL;
+    DEALLOCATE PREPARE querySQL;
+END $$
+
+DELIMITER ;
