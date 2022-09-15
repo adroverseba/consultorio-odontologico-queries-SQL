@@ -333,3 +333,11 @@ BEFORE DELETE ON pacientes
 FOR EACH ROW
 INSERT INTO logs(event_name,event_user,event_datetime,id_paciente,nombre,numero_documento)
 VALUES('paciente eliminado',session_user(),current_timestamp(),OLD.id_paciente,OLD.nombre,OLD.numero_documento);
+
+
+--2 trigger encargado de registrar las actualizaciones de la misma tabla 
+CREATE TRIGGER tr_update_paciente
+AFTER UPDATE ON pacientes
+FOR EACH ROW
+INSERT INTO logs(event_name,event_user,event_datetime,id_paciente,nombre,numero_documento)
+VALUES('paciente actualizado',session_user(),current_timestamp(),OLD.id_paciente,OLD.nombre,OLD.numero_documento);
