@@ -313,3 +313,23 @@ DELIMITER ;
 -- CALL sp_add_delete_data('add','\'joaquin adr\',\'san juan 201\',\'42503856\',\'1999-08-09\',\'H\',\'3541226589\'');
 -- CALL sp_add_delete_data('delete','8')
 -- CALL sp_add_delete_data2('agreg','\'joaquin adr\',\'san juan 201\',\'42503856\',\'1999-08-09\',\'H\',\'3541226589\'')
+
+
+--                         ~       TRIGGERS      ~
+
+-- creacion de una tabla de registro "logs" el cual contendra la informacion de las eliminaciones y actizaciones realizadas sobre la tabla de pacientes 
+CREATE TABLE logs(
+	event_name CHAR(20),
+  event_user VARCHAR(50),
+  event_datetime TIMESTAMP,
+	id_paciente INT,
+  nombre VARCHAR(30),
+  numero_documento VARCHAR(20)
+);
+
+-- 1 trigger que registra las eliminaciones de los pacientes 
+CREATE TRIGGER tr_delete_paciente 
+BEFORE DELETE ON pacientes
+FOR EACH ROW
+INSERT INTO logs(event_name,event_user,event_datetime,id_paciente,nombre,numero_documento)
+VALUES('paciente eliminado',session_user(),current_timestamp(),OLD.id_paciente,OLD.nombre,OLD.numero_documento);
