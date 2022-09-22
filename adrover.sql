@@ -341,3 +341,16 @@ AFTER UPDATE ON pacientes
 FOR EACH ROW
 INSERT INTO logs(event_name,event_user,event_datetime,id_paciente,nombre,numero_documento)
 VALUES('paciente actualizado',session_user(),current_timestamp(),OLD.id_paciente,OLD.nombre,OLD.numero_documento);
+
+
+--                 ~      CREACION DE USUARIOS       ~      
+CREATE USER 'user1'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
+CREATE USER 'user2'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
+--                  PERMISOS DE USUARIOS
+--user1 -> permisos de solo lectura para user1
+GRANT SELECT ON *.* TO 'user1'@'localhost';
+
+--user2 -> permiso de lectura, insercion y midificacion de datos para user2
+GRANT SELECT,INSERT,UPDATE ON *.* TO 'user2'@'localhost';
