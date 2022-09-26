@@ -354,3 +354,47 @@ GRANT SELECT ON *.* TO 'user1'@'localhost';
 
 --user2 -> permiso de lectura, insercion y midificacion de datos para user2
 GRANT SELECT,INSERT,UPDATE ON *.* TO 'user2'@'localhost';
+
+--                 ~      SUBLENGUAJE TCL      ~      
+USE adrover;
+
+START TRANSACTION;
+	DELETE FROM adrover.pacientes WHERE id_paciente = 4;
+	DELETE FROM adrover.pacientes WHERE id_paciente = 5;
+	DELETE FROM adrover.pacientes WHERE id_paciente = 6;
+-- ROLLBACK;
+COMMIT;
+
+-- Valores correspondientes a los id 4,5,6 en el caso de ser necesario reingresarlos 
+-- INSERT INTO adrover.pacientes 
+-- VALUES('4', 'Matias Adr', 'teniente portom 987', '65233845', '1981-11-10', 'H', '351-2459233')
+-- 		,('5', 'Ippo Makunouchi', 'muelle 787', '56244895', '1986-03-30', 'H', '354-5135463')
+-- 		,('6', 'Ash Ketchup', 'paleta 543', '54546554', '2012-03-22', 'H', '3541-542354');
+
+START TRANSACTION;
+
+	INSERT INTO adrover.odontologos 
+    VALUES(NULL, 'leonardo tortuga', '38422789', '1995-08-04', 'dentista general', '﻿sonrisas brillantes')
+		,(NULL,'juan domingo','40256985','1990-09-03','dentista encias','﻿sonrisas brillantes')
+        ,(NULL,'homero simpsons','42568356','1980-02-22','patologo oral','sonrisas cede centro')
+        ,(NULL,'jonhy depp','38526784','1994-02-07','patologo oral','sonrisas cede centro')
+    ;
+  
+-- ROLLBACK;
+SAVEPOINT primera_tanda;
+
+INSERT INTO adrover.odontologos 
+    VALUES(NULL, 'jesica marian', '40256365', '1997-11-04', 'dentista general', 'sonrisas brillantes')
+		,(NULL,'maria del valle','25369852','1980-05-15','dentista encias','sonrisas brillantes')
+        ,(NULL,'luisa vega','36987526','1979-01-12','patologo oral','sonrisas cede centro')
+    ;
+	
+SAVEPOINT segunda_tanda;
+
+-- para borrar primer savepoint, descomentar linea de abajo 
+-- RELEASE primera_tanda;
+
+-- en el caso de requerir regresar al estado del savepoint primera_tanda, descomentar la linea de abajo
+-- ROLLBACK TO primera_tanda;
+
+COMMIT;
