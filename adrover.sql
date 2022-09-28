@@ -398,3 +398,14 @@ SAVEPOINT segunda_tanda;
 -- ROLLBACK TO primera_tanda;
 
 COMMIT;
+
+
+
+--                         ~       BACKUP POR MEDIO DE CLI           ~ 
+--COMANDOS 
+
+-- backup de las estructuras de las tablas en la base de datos 
+mysqldump -u root -p adrover --no-data > D:\sql-adrover-estructura-20220928.sql
+
+-- backup de la data
+mysqldump -u root -p adrover --no-create-info > D:\sql-adrover-data-20220928.sql
