@@ -14,3 +14,9 @@ de acuerdo a las siguientes reglas de negocio:
 ## Diagrama Entidad-Relacion propuesto
 
 ![diagrama](./utils/der-odontol.jpg)
+
+## Queries
+
+En el archivo
+[adrover.sql](https://github.com/adroverseba/consultorio-odontologico-queries-SQL/blob/main/adrover.sql)
+se puede observar todas las queries referidas a los sublenguajes DDL, DML, DCL, TCL, creación de Funciones, Stored Procedures, vistas, Triggers, Backup de datos y tablas, etc.
