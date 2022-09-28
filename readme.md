@@ -1,4 +1,4 @@
-# Queries SQL - Consultorio Odontologico
+# Queries SQL - Consultorio Odontologico 👨🏻‍⚕️🦷🪥
 
 En este proyecto se quiere modelar la actividad de una **clinica odontologica**
 de acuerdo a las siguientes reglas de negocio:
@@ -15,7 +15,7 @@ de acuerdo a las siguientes reglas de negocio:
 
 ![diagrama](./utils/der-odontol.jpg)
 
-## Queries
+## Queries📄
 
 En el archivo
 [adrover.sql](https://github.com/adroverseba/consultorio-odontologico-queries-SQL/blob/main/adrover.sql)
